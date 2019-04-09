@@ -30,6 +30,19 @@ function blindSlideToggle(trigger, boxBody, content, openClass) {
 
 blindSlideToggle('.hamburger', '[data-slide="nav"]', '.header__menu', 'slide-active');
 
+function switchMode() {
+    if (night === false ){
+        document.body.style.backgroundColor = '#000';
+    }
+}
+
+let night = false;
+switcher.addEventListener('change', ()=> {
+    switchMode();
+});
+
+
+
 
 /*
 const data = [
