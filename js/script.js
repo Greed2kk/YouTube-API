@@ -1,6 +1,6 @@
 //'use strict';
 
-const switcher = document.querySelector('#sbx'), // id  #
+const switcher = document.querySelector('#cbx'), // id  #
       more = document.querySelector('.more'),
       modal = document.querySelector('.modal'), 
       videos = document.querySelectorAll('.videos__item'); // class . 
@@ -30,14 +30,16 @@ function blindSlideToggle(trigger, boxBody, content, openClass) {
 
 blindSlideToggle('.hamburger', '[data-slide="nav"]', '.header__menu', 'slide-active');
 
-function switchMode() {
-    if (night === false ){
-        document.body.style.backgroundColor = '#000';
+function switchMode() {     
+    if (night === false ){  // переключятель
+        //document.body.style.backgroundColor = '#000'; // черный цвет bg
+        document.body.classList.add('night');
     }
+
 }
 
 let night = false;
-switcher.addEventListener('change', ()=> {
+switcher.addEventListener('change', () => {
     switchMode();
 });
 
