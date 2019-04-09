@@ -140,42 +140,44 @@ sliceTitle('.videos__item-descr', 100);
 
 function openModal() {
     modal.style.display = 'block';
-}
-
-function closeModal() {
+  }
+  function closeModal() {
     modal.style.display = 'none';
     player.stopVideo();
-}
-
-function bindModal(cards) {
+  }
+  function bindModal(cards) {
     cards.forEach(item => {
-        item.addEventListener('click', (e) => {
-            e.preventDefault();
-            const id = item.getAttribute('data-url');
-            loadVideo(id);
-            openModal();
-        });
+      item.addEventListener('click', (event) => {
+        event.preventDefault();
+        const id = item.getAttribute('data-url');
+        loadVideo(id)
+        openModal();
+      });
+      modal.addEventListener('click', () => {
+        if(!event.target.classList.contains('modal__body')) {
+          closeModal();
+        }
+      });  
     });
-
-}
+  }
 
 bindModal(videos);
 
 function bindNewModal(cards) {
-    cards.addEventListener('click', (e) => {
-        e.preventDefault();
+    cards.addEventListener('click', (event) => {
+        event.preventDefault();
         const id = cards.getAttributee('data-url');
             loadVideo(id);
         openModal();
     });
 
-}
 
 modal.addEventListener('click', (e) => {
      if (!e.target.classList.contains('modal__body')) { //добавить крестик через ||
         closeModal();
      }
 });
+}
 
 function createVideo() {
     var tag = document.createElement('script');
@@ -195,7 +197,7 @@ function createVideo() {
 
 createVideo();
 
-function loadVideo( id ) {
+function loadVideo(id) {
     player.loadVideoById({'videoId': `${id}`});
 }
 
