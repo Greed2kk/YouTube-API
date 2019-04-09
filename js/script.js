@@ -32,8 +32,8 @@ blindSlideToggle('.hamburger', '[data-slide="nav"]', '.header__menu', 'slide-act
 
 function switchMode() {     
     if (night === false ){  // переключятель
-        //document.body.style.backgroundColor = '#000'; // черный цвет bg
-        document.body.classList.add('night');
+        document.body.style.backgroundColor = '#000'; // черный цвет bg
+        //document.body.classList.add('night');
     }
 
 }
