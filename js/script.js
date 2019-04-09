@@ -90,55 +90,49 @@ const data = [
         '#1 Верстка реального заказа landing Page | Марафон вёрстки | Артём Исламов'],
     ['3,6 тыс. просмотров', '4,2 тыс. просмотров', '28 тыс. просмотров'],
     ['X9SmcY3lM-U', '7BvHoh0BrMw', 'mC8JW_aG2EM']
-];
-
-more.addEventListener('click', () => {
+  ];
+  
+  more.addEventListener('click', () => {
     const videosWrapper = document.querySelector('.videos__wrapper');
     more.remove();
-
-    for (let i = 0; i < data[0].length; i++) {
-        let card = document.createElement('a');
-        card.classList.add('videos__item', 'videos__item-active');
-        card.setAttribute('data-url', data[3][i]);
-        card.innerHTML = `
-            <img src="${data[0][i]}" alt="thumb">
-            <div class="videos__item-descr">
-                 ${data[1][i]}
-            </div>
-            <div class="videos__item-views">
-                ${data[2][i]}
-            </div>
-        `;
-        videosWrapper.appendChild(card);
-        setTimeout (() => {
-            card.classList.remove('videos__item-active');
-        }, 10);
-        bindNewModal(card);
-        sliceTitle('.videos__item-descr', 100);
-        
+  
+    for(let i = 0; i < data[0].length; i++) {
+      let card = document.createElement('a');
+      card.classList.add('videos__item', 'videos__item-active');
+      card.setAttribute('data-url', data[3][i]);
+      card.innerHTML = `
+        <img src="${data[0][i]}" alt="thumb">
+        <div class="videos__item-descr">
+          ${data[1][i]}
+        </div>
+        <div class="videos__item-views">
+          ${data[2][i]}
+        </div>
+      `;
+      videosWrapper.appendChild(card);
+      setTimeout(() => {
+        card.classList.remove('videos__item-active');
+      }, 10);
+      bindNewModal(card);
     }
-    
-    
-
-});
-
-function sliceTitle(selector, count) {
+    sliceTitle('.videos__item-descr', 80);
+  });
+  
+  function sliceTitle(selector, count) {
     document.querySelectorAll(selector).forEach(item => {
-        item.textContent.trim();  //удаление пробелов вначали и в конце
-
-        if (item.textContent.length < count){
-            return;   
-        } else {
-             const str = item.textContent.slice(0, count + 1) + "...";
-             item.textContent = str;
-        }
-
+      item.textContent.trim();
+      if(item.textContent.length < count) {
+        return;
+      } else {
+        const str = item.textContent.slice(0, count + 1) + "...";
+        item.textContent = str;
+      }
     });
-}
-
-sliceTitle('.videos__item-descr', 100);
-
-function openModal() {
+  }
+  
+  sliceTitle('.videos__item-descr', 100);
+  
+  function openModal() {
     modal.style.display = 'block';
   }
   function closeModal() {
@@ -160,56 +154,48 @@ function openModal() {
       });  
     });
   }
-
-bindModal(videos);
-
-function bindNewModal(cards) {
+  
+  bindModal(videos);
+  
+  function bindNewModal(cards) {
     cards.addEventListener('click', (event) => {
-        event.preventDefault();
-        const id = cards.getAttributee('data-url');
-            loadVideo(id);
-        openModal();
+      event.preventDefault();
+      const id = cards.getAttribute('data-url');
+      loadVideo(id);
+      openModal();
+  
     });
-
-
-modal.addEventListener('click', (e) => {
-     if (!e.target.classList.contains('modal__body')) { //добавить крестик через ||
+  
+    modal.addEventListener('click', () => {
+      if(!event.target.classList.contains('modal__body')) {
         closeModal();
-     }
-});
-}
-
-function createVideo() {
-    var tag = document.createElement('script');
-
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0]; //TagName збс
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
+      }
+    });
+  }
+  
+  function createVideo() {
+      // from https://developers.google.com/youtube/iframe_api_reference?hl=ru
+     // 2. This code loads the IFrame Player API code asynchronously.
+     var tag = document.createElement('script');
+  
+     tag.src = "https://www.youtube.com/iframe_api";
+     var firstScriptTag = document.getElementsByTagName('script')[0];
+     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  
     setTimeout(() => {
-        player = new YT.Player('frame', {   //название дива куда вставлять код
-            height: '100%',
-            width: '100%',
-            videoId: ''
-          });
-    }, 300);   
-}
-
-createVideo();
-
-function loadVideo(id) {
+      player = new YT.Player('frame', {
+        height: '100%',
+        width: '100%',
+        videoId: 'M7lc1UVf-VE',
+      });    
+    }, 300);
+  }
+  
+  createVideo();
+  
+  function loadVideo(id) {
     player.loadVideoById({'videoId': `${id}`});
-}
-
-
-
-
-
-
-
-
-
-
+  }
 
 
 
