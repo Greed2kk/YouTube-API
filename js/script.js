@@ -4,8 +4,6 @@ const switcher = document.querySelector('#cbx'), // id  #
       more = document.querySelector('.more'),
       modal = document.querySelector('.modal'), 
       videos = document.querySelectorAll('.videos__item'), // class . 
-      modeSwitcherDay = document.querySelector('.header__item-descr-day'),
-      modeSwitcherNight = document.querySelector('.header__item-descr-night'),
       header= document.getElementById('header');
       
     
@@ -65,7 +63,7 @@ function switchMode() {
 }
 
 let night = false;
-modeSwitcherDay.style.opacity = '0';
+
 
 switcher.addEventListener('change', () => {
     switchMode();
@@ -73,6 +71,9 @@ switcher.addEventListener('change', () => {
 });
 
 function dayModeSwitcher() {  // налепил говна 
+    let modeSwitcherDay = document.querySelector('.header__item-descr-day'),
+      modeSwitcherNight = document.querySelector('.header__item-descr-night');
+      modeSwitcherDay.style.opacity = '0';
     if( night === false) {
         modeSwitcherDay.style.opacity = '0';
         modeSwitcherNight.style.opacity = '1';     
@@ -106,15 +107,110 @@ more.addEventListener('click', () => {
         </div>
         <div class="videos__item-views">
             ${data[2][i]}
-        </div>
-        `;
+        </div>`;
 
         videosWrapper.appendChild(card);    
-        setTimeout(() => {
+        setTimeout( () => {
             card.classList.remove('videos__item-active');
-        });
+            
+        }, 10);
+        bindNewModal(card);
     }
+
+    sliceTitle('.videos__item-descr', 100);
 });
+
+function sliceTitle(selector, count) {
+    document.querySelectorAll(selector).forEach(item => {
+        item.textContent.trim();  //удаление пробелов вначали и в конце
+
+        if (item.textContent.length < count){
+            return;   
+        } else {
+             const str = item.textContent.slice(0, count + 1) + "...";
+             item.textContent = str;
+        }
+
+    });
+}
+
+sliceTitle('.videos__item-descr', 100);
+
+function openModal() {
+    modal.style.display = 'block';
+}
+
+function closeModal() {
+    modal.style.display = 'none';
+    player.stopVideo();
+}
+
+function bindModal(cards) {
+    cards.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const id = item.getAttribute('data-url');
+            loadVideo(id);
+            openModal();
+        });
+    });
+
+}
+
+bindModal(videos);
+
+function bindNewModal(cards) {
+    cards.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = cards.getAttributee('data-url');
+            loadVideo(id);
+        openModal();
+    });
+
+}
+
+modal.addEventListener('click', (e) => {
+     if (!e.target.classList.contains('modal__body')) { //добавить крестик через ||
+        closeModal();
+     }
+});
+
+function createVideo() {
+    var tag = document.createElement('script');
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0]; //TagName збс
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    setTimeout(() => {
+        player = new YT.Player('frame', {   //название дива куда вставлять код
+            height: '100%',
+            width: '100%',
+            videoId: ''
+          });
+    }, 300);   
+}
+
+createVideo();
+
+function loadVideo( id ) {
+    player.loadVideoById({'videoId': `${id}`});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 const data = [
