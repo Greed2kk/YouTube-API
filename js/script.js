@@ -3,7 +3,9 @@
 const switcher = document.querySelector('#cbx'), // id  #
       more = document.querySelector('.more'),
       modal = document.querySelector('.modal'), 
-      videos = document.querySelectorAll('.videos__item'); // class . 
+      videos = document.querySelectorAll('.videos__item'), // class . 
+      modeSwitcherDay = document.querySelector('.header__item-descr-day'),
+      modeSwitcherNight = document.querySelector('.header__item-descr-night')
 let player;
 
 
@@ -31,19 +33,40 @@ function blindSlideToggle(trigger, boxBody, content, openClass) {
 blindSlideToggle('.hamburger', '[data-slide="nav"]', '.header__menu', 'slide-active');
 
 function switchMode() {     
-    if (night === false ){  // переключятель
+    if (night === false ){ 
+        night = true; // переключятель
         //document.body.style.backgroundColor = '#000'; // черный цвет bg
-        document.body.classList.add('night');
+        document.body.classList.remove('day'); // налепил говна 
+        document.body.classList.add('night'); // добавление класса night в стиле прописать         
+    } else {  
+        night = false;
+        document.body.classList.remove('night');    // налепил говна 
+        document.body.classList.add('day');         // налепил говна 
     }
-
+   
 }
 
 let night = false;
+modeSwitcherDay.style.opacity = '0';
+
 switcher.addEventListener('change', () => {
     switchMode();
+    dayModeSwitcher();
 });
 
+function dayModeSwitcher() {  // налепил говна 
+    if( night === false) {
+        modeSwitcherDay.style.opacity = '0';
+        modeSwitcherNight.style.opacity = '1';
 
+    } else {
+        modeSwitcherDay.style.opacity = '1';
+        modeSwitcherNight.style.opacity = '0';
+       
+
+    }
+    
+}
 
 
 /*
