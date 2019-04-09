@@ -4,16 +4,21 @@ body {
 }
 
 body.night {
-    background-color: rgb(31, 36, 43);
+    background-color: black;
     transition: background-color 2000ms linear;
     color: white
 
 }
+
 body.day {  /* налепил говна*/
     background-color: white;
     transition: background-color 2000ms linear;
     color: black
 
+}
+
+header {
+    transition: background-color 2000ms linear;
 }
 
 
@@ -22,7 +27,8 @@ body.day {  /* налепил говна*/
 }
 
 .logo img {
-    width: 130px
+    width: 130px;
+    height:50.53px
 }
 
 .hamburger {
@@ -156,8 +162,10 @@ body.day {  /* налепил говна*/
 }
 
 .header__item-switch {
+    
     display: flex;
     align-items: center
+    
 }
 
 .header__item-descr-day {  /* налепил говна*/
@@ -175,7 +183,8 @@ body.day {  /* налепил говна*/
 
 .header__menu {
     display: flex;
-    align-items: center
+    align-items: center;
+    
 }
 
 hr {

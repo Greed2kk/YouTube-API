@@ -5,7 +5,11 @@ const switcher = document.querySelector('#cbx'), // id  #
       modal = document.querySelector('.modal'), 
       videos = document.querySelectorAll('.videos__item'), // class . 
       modeSwitcherDay = document.querySelector('.header__item-descr-day'),
-      modeSwitcherNight = document.querySelector('.header__item-descr-night')
+      modeSwitcherNight = document.querySelector('.header__item-descr-night'),
+      header= document.getElementById('header');
+      
+    
+
 let player;
 
 
@@ -32,18 +36,34 @@ function blindSlideToggle(trigger, boxBody, content, openClass) {
 
 blindSlideToggle('.hamburger', '[data-slide="nav"]', '.header__menu', 'slide-active');
 
+
+
+
 function switchMode() {     
     if (night === false ){ 
         night = true; // переключятель
         //document.body.style.backgroundColor = '#000'; // черный цвет bg
         document.body.classList.remove('day'); // налепил говна 
-        document.body.classList.add('night'); // добавление класса night в стиле прописать         
+        document.body.classList.add('night'); // добавление класса night в стиле прописать        
+        document.querySelector('.logo > img').src = 'logo/youtube_night.svg';
+        header.style.backgroundColor = '#282828';
+        document.querySelectorAll('.hamburger > line').forEach(item => {
+            item.style.stroke = '#ffffff';
+        });
+     
+        
+        
+       
     } else {  
         night = false;
         document.body.classList.remove('night');    // налепил говна 
         document.body.classList.add('day');         // налепил говна 
+        document.querySelector('.logo > img').src = 'logo/youtube.svg';
+        header.style.backgroundColor = '#ffffff';
+        document.querySelectorAll('.hamburger > line').forEach(item => {
+            item.style.stroke = '#000';
+        });
     }
-   
 }
 
 let night = false;
@@ -58,10 +78,12 @@ function dayModeSwitcher() {  // налепил говна
     if( night === false) {
         modeSwitcherDay.style.opacity = '0';
         modeSwitcherNight.style.opacity = '1';
+       
 
     } else {
         modeSwitcherDay.style.opacity = '1';
         modeSwitcherNight.style.opacity = '0';
+        
        
 
     }
